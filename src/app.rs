@@ -79,7 +79,7 @@ impl eframe::App for TemplateApp {
             for unit in units {
                 ui.horizontal(|ui| {
                     ui.label(&unit.name);
-                    ui.label(format!("{}", unit.kaufpreis));
+                    ui.label(format!("{}", unit.kaufpreis.to_formatted_string(&Locale::de)));
                     if ui.button("+1").clicked() {
                         *units_bought.entry(unit.clone()).or_default() += 1;
                     }
@@ -89,20 +89,8 @@ impl eframe::App for TemplateApp {
                 });
             }
 
-            // ui.add(egui::Slider::new(value, 0.0..=10.0).text("value"));
-            // if ui.button("Increment").clicked() {
-            //     *value += 1.0;
-            // }
 
-            ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
-                ui.horizontal(|ui| {
-                    ui.spacing_mut().item_spacing.x = 0.0;
-                    ui.label("powered by ");
-                    ui.hyperlink_to("egui", "https://github.com/emilk/egui");
-                    ui.label(" and ");
-                    ui.hyperlink_to("eframe", "https://github.com/emilk/egui/tree/master/eframe");
-                });
-            });
+ 
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
@@ -135,13 +123,5 @@ impl eframe::App for TemplateApp {
             
         });
 
-        if false {
-            egui::Window::new("Window").show(ctx, |ui| {
-                ui.label("Windows can be moved by dragging them.");
-                ui.label("They are automatically sized based on contents.");
-                ui.label("You can turn on resizing and scrolling if you like.");
-                ui.label("You would normally chose either panels OR windows.");
-            });
-        }
     }
 }

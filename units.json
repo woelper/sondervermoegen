@@ -40,5 +40,19 @@
     "url": "https://de.wikipedia.org/wiki/Lockheed_Martin_F-35",
     "soldaten": 8,
     "wartung_pro_jahr": 10000
+  },
+  {
+    "name": "A400M",
+    "kaufpreis": 190000000,
+    "url": "https://de.wikipedia.org/wiki/Airbus_A400M",
+    "soldaten": 8,
+    "wartung_pro_jahr": 10000
+  },
+  {
+    "name": "Eurocopter Tiger",
+    "kaufpreis": 48000000,
+    "url": "https://de.wikipedia.org/wiki/Airbus_A400M",
+    "soldaten": 8,
+    "wartung_pro_jahr": 10000
   }
 ]
