@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Leopard 2 A7V",
+    "kaufpreis": 15000000,
+    "url": "https://de.wikipedia.org/wiki/Leopard_2",
+    "soldaten": [
+      {
+        "besoldung": "A6"
+      },
+      {
+        "besoldung": "A5"
+      },
+      {
+        "besoldung": "A5"
+      },
+      {
+        "besoldung": "A5"
+      }
+    ],
+    "wartung_pro_jahr": 0
+  },
+  {
+    "name": "Eurofighter",
+    "kaufpreis": 113900000,
+    "url": "https://de.wikipedia.org/wiki/Leopard_2",
+    "soldaten": [
+      {
+        "besoldung": "A7"
+      }
+    ],
+    "wartung_pro_jahr": 530000
+  }
+]

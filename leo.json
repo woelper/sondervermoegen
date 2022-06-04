@@ -1,0 +1,10 @@
+{
+  "name": "Leopard 2 A7V",
+  "kaufpreis": 0,
+  "soldaten": [
+    {
+      "besoldung": "A5"
+    }
+  ],
+  "wartung_pro_jahr": 0
+}

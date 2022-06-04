@@ -1,13 +1,16 @@
+
+use std::fs::File;
+
+use serde::{Serialize, Deserialize};
+use serde_json;
+
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
 pub struct TemplateApp {
     // Example stuff:
     label: String,
-
-    // this how you opt-out of serialization of a member
-    #[serde(skip)]
-    value: f32,
+    credits: i64,
 }
 
 impl Default for TemplateApp {
@@ -15,7 +18,7 @@ impl Default for TemplateApp {
         Self {
             // Example stuff:
             label: "Hello World!".to_owned(),
-            value: 2.7,
+            credits: 100_000_000_000,
         }
     }
 }
@@ -45,7 +48,7 @@ impl eframe::App for TemplateApp {
     /// Called each time the UI needs repainting, which may be many times per second.
     /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
-        let Self { label, value } = self;
+        let Self { label, credits } = self;
 
         // Examples of how to create different panels and windows.
         // Pick whichever suits you.
@@ -71,10 +74,12 @@ impl eframe::App for TemplateApp {
                 ui.text_edit_singleline(label);
             });
 
-            ui.add(egui::Slider::new(value, 0.0..=10.0).text("value"));
-            if ui.button("Increment").clicked() {
-                *value += 1.0;
-            }
+            ui.label(format!("Restvermoegen {}", credits));
+
+            // ui.add(egui::Slider::new(value, 0.0..=10.0).text("value"));
+            // if ui.button("Increment").clicked() {
+            //     *value += 1.0;
+            // }
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 ui.horizontal(|ui| {
@@ -108,4 +113,52 @@ impl eframe::App for TemplateApp {
             });
         }
     }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+
+enum Besoldung {
+    A3 = 2476,
+    A4 = 2553,
+    A5 = 2598,
+    A6 = 2700,
+    A7 = 2864,
+    A8 = 3090,
+    A9 = 3333,
+    A10 = 3654,
+    A11 = 4192,
+    A12 = 4565,
+    A13 = 5193,
+    A14 = 5508,
+    A15 = 6330,
+    A16 = 7018
+}
+
+impl Default for Besoldung {
+    fn default() -> Self {
+        Self::A5
+    }
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+
+struct Soldat {
+    besoldung: Besoldung
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+struct Unit {
+    name: String,
+    kaufpreis: i64,
+    udl: String,
+    soldaten: Vec<Soldat>,
+    wartung_pro_jahr: i64,
+}
+
+#[test]
+fn write_unit() {
+
+    let mut leopard2 = Unit::default();
+    leopard2.soldaten.push(Soldat::default());
+    serde_json::to_writer_pretty(File::create("leo.json").unwrap(), &leopard2).unwrap();
 }
