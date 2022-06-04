@@ -1,23 +1,25 @@
 mod resources;
-use std::collections::HashMap;
-
+use num_format::{Locale, ToFormattedString};
 use resources::*;
+use std::collections::HashMap;
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
 pub struct TemplateApp {
     credits: i64,
+    remaining_credits: i64,
     units: Vec<Unit>,
-    units_bought: HashMap<Unit, usize>
+    units_bought: HashMap<Unit, usize>,
 }
 
 impl Default for TemplateApp {
     fn default() -> Self {
         Self {
             credits: 100_000_000_000,
+            remaining_credits: 100_000_000_000,
             units: serde_json::from_str(include_str!("../units.json")).unwrap(),
-            units_bought: HashMap::default()
+            units_bought: HashMap::default(),
         }
     }
 }
@@ -30,11 +32,10 @@ impl TemplateApp {
 
         // Load previous app state (if any).
         // Note that you must enable the `persistence` feature for this to work.
-        if let Some(storage) = cc.storage {
-            return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
-        }
+        // if let Some(storage) = cc.storage {
 
-
+        //     return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
+        // }
 
         Default::default()
     }
@@ -51,8 +52,9 @@ impl eframe::App for TemplateApp {
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         let Self {
             credits,
+            remaining_credits,
             units,
-            units_bought
+            units_bought,
         } = self;
 
         // Examples of how to create different panels and windows.
@@ -74,15 +76,16 @@ impl eframe::App for TemplateApp {
         egui::SidePanel::left("side_panel").show(ctx, |ui| {
             ui.heading("Einheiten zum Kauf");
 
-
             for unit in units {
                 ui.horizontal(|ui| {
                     ui.label(&unit.name);
-                    ui.label(format!("{}",unit.kaufpreis));
-                    if ui.button("Kaufen").clicked() {
+                    ui.label(format!("{}", unit.kaufpreis));
+                    if ui.button("+1").clicked() {
                         *units_bought.entry(unit.clone()).or_default() += 1;
                     }
-
+                    if ui.button("+10").clicked() {
+                        *units_bought.entry(unit.clone()).or_default() += 10;
+                    }
                 });
             }
 
@@ -104,15 +107,32 @@ impl eframe::App for TemplateApp {
 
         egui::CentralPanel::default().show(ctx, |ui| {
             // The central panel the region left after adding TopPanel's and SidePanel's
-            ui.heading(format!("Restvermoegen {}", credits));
 
+            ui.heading(format!(
+                "Restvermoegen {}",
+                remaining_credits.to_formatted_string(&Locale::de)
+            ));
+
+            let mut cost = 0;
 
             for (unit, num) in units_bought {
-                ui.label(format!("{} x {} {}", num, &unit.name, *num as i64 * unit.total_cost()));
+                let price = *num as i64 * unit.total_cost();
 
+                cost += price;
+
+                ui.label(format!(
+                    "{} x {} {}",
+                    num,
+                    &unit.name,
+                    price.to_formatted_string(&Locale::de)
+                ));
             }
 
-          
+            *remaining_credits = *credits - cost;
+
+ 
+
+            
         });
 
         if false {

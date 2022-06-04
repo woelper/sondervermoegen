@@ -3,31 +3,42 @@
     "name": "Leopard 2 A7V",
     "kaufpreis": 15000000,
     "url": "https://de.wikipedia.org/wiki/Leopard_2",
-    "soldaten": [
-      {
-        "besoldung": "A6"
-      },
-      {
-        "besoldung": "A5"
-      },
-      {
-        "besoldung": "A5"
-      },
-      {
-        "besoldung": "A5"
-      }
-    ],
+    "soldaten": 4,
     "wartung_pro_jahr": 0
   },
   {
     "name": "Eurofighter",
     "kaufpreis": 113900000,
     "url": "https://de.wikipedia.org/wiki/Leopard_2",
-    "soldaten": [
-      {
-        "besoldung": "A7"
-      }
-    ],
+    "soldaten": 8,
     "wartung_pro_jahr": 530000
+  },
+  {
+    "name": "U 212CD",
+    "kaufpreis": 780000000,
+    "url": "https://de.wikipedia.org/wiki/U-Boot-Klasse_212_A",
+    "soldaten": 26,
+    "wartung_pro_jahr": 530000
+  },
+  {
+    "name": "Fregatte F125",
+    "kaufpreis": 775000000,
+    "url": "https://de.wikipedia.org/wiki/Baden-W%C3%BCrttemberg-Klasse",
+    "soldaten": 190,
+    "wartung_pro_jahr": 530000
+  },
+  {
+    "name": "CH-47F Chinook",
+    "kaufpreis": 66000000,
+    "url": "https://de.wikipedia.org/wiki/Boeing-Vertol_CH-47",
+    "soldaten": 4,
+    "wartung_pro_jahr": 10000
+  },
+  {
+    "name": "F35",
+    "kaufpreis": 114285714,
+    "url": "https://de.wikipedia.org/wiki/Lockheed_Martin_F-35",
+    "soldaten": 8,
+    "wartung_pro_jahr": 10000
   }
 ]

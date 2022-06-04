@@ -1,4 +1,4 @@
-use std::fs::File;
+use std::{fs::File, collections::HashMap};
 
 use serde::{Serialize, Deserialize};
 use serde_json;
@@ -41,13 +41,13 @@ pub struct Unit {
     pub name: String,
     pub kaufpreis: i64,
     pub url: String,
-    pub soldaten: Vec<Soldat>,
+    pub soldaten: usize,
     pub wartung_pro_jahr: i64,
 }
 
 impl Unit {
     pub fn total_cost(&self) -> i64 {
-        self.kaufpreis + self.soldaten.iter().fold(0, |sum, soldat| sum + soldat.besoldung as i64 * 12) + self.wartung_pro_jahr
+        self.kaufpreis + self.soldaten as i64 * 3000 * 12 + self.wartung_pro_jahr
     }
 }
 
@@ -55,6 +55,6 @@ impl Unit {
 fn write_unit() {
 
     let mut leopard2 = Unit::default();
-    leopard2.soldaten.push(Soldat::default());
+    // leopard2.soldaten.push(Soldat::default());
     serde_json::to_writer_pretty(File::create("leo.json").unwrap(), &leopard2).unwrap();
 }
