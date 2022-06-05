@@ -102,5 +102,13 @@
     "soldaten": 5,
     "icon": "🚢",
     "wartung_pro_jahr": 10000
+  },
+  {
+    "name": "Arrow 3 or Hetz 3",
+    "kaufpreis": 3000000,
+    "url": "https://en.wikipedia.org/wiki/Arrow_3",
+    "soldaten": 5,
+    "icon": "🚢",
+    "wartung_pro_jahr": 266666666
   }
 ]
