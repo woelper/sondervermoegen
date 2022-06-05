@@ -44,6 +44,8 @@ pub struct Unit {
     pub icon: Option<String>,
     pub soldaten: usize,
     pub wartung_pro_jahr: i64,
+    #[serde(default)]
+    pub beschreibung: String
 }
 
 impl Unit {
@@ -62,8 +64,6 @@ fn write_unit() {
 
 #[test]
 fn load_units() {
-
-    let mut leopard2 = Unit::default();
-    // leopard2.soldaten.push(Soldat::default());
-    let units: Vec<Unit> = serde_json::from_reader(File::open("units.json").unwrap()).unwrap();
+    // This just checks if units are valid
+    let _units: Vec<Unit> = serde_json::from_reader(File::open("units.json").unwrap()).unwrap();
 }

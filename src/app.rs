@@ -32,10 +32,12 @@ impl TemplateApp {
 
         // Load previous app state (if any).
         // Note that you must enable the `persistence` feature for this to work.
-        // if let Some(storage) = cc.storage {
-
-        //     return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
-        // }
+        if let Some(storage) = cc.storage {
+            let mut state: TemplateApp =
+                eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
+            state.units = serde_json::from_str(include_str!("../units.json")).unwrap();
+            return state;
+        }
 
         Default::default()
     }
@@ -57,11 +59,6 @@ impl eframe::App for TemplateApp {
             units_bought,
         } = self;
 
-        // Examples of how to create different panels and windows.
-        // Pick whichever suits you.
-        // Tip: a good default choice is to just keep the `CentralPanel`.
-        // For inspiration and more examples, go to https://emilk.github.io/egui
-
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
             // The top panel is often a good place for a menu bar:
             egui::menu::bar(ui, |ui| {
@@ -74,52 +71,80 @@ impl eframe::App for TemplateApp {
         });
 
         egui::SidePanel::left("side_panel").show(ctx, |ui| {
-            ui.heading("Einheiten zum Kauf");
+            ui.heading("verfuegbare Ausruestung");
 
             for unit in units {
-                ui.horizontal(|ui| {
-                    if let Some(icon) = &unit.icon {
-                        ui.label(icon);
-                    }
-                    ui.label(&unit.name);
-                    ui.label(format!(
-                        "{}",
-                        unit.kaufpreis.to_formatted_string(&Locale::de)
-                    ));
-                    if ui.button("+1").clicked() {
-                        *units_bought.entry(unit.clone()).or_default() += 1;
-                    }
-                    if ui.button("+10").clicked() {
-                        *units_bought.entry(unit.clone()).or_default() += 10;
-                    }
-                });
+                let r = ui.scope(|ui| {
+                    ui.horizontal(|ui| {
+                        if let Some(icon) = &unit.icon {
+                            ui.label(icon);
+                        }
+                        ui.label(&unit.name);
+                        ui.hyperlink_to("wiki", &unit.url);
+                    });
+
+                    ui.horizontal(|ui| {
+                        ui.label(format!(
+                            "{}",
+                            unit.kaufpreis.to_formatted_string(&Locale::de)
+                        ));
+                        if ui.button("+1").clicked() {
+                            *units_bought.entry(unit.clone()).or_default() += 1;
+                        }
+                        if ui.button("+10").clicked() {
+                            *units_bought.entry(unit.clone()).or_default() += 10;
+                        }
+                    });
+                }).response;
+
+                if unit.beschreibung != "" {
+                    r.on_hover_text(&unit.beschreibung);
+                }
             }
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            // The central panel the region left after adding TopPanel's and SidePanel's
+            ui.label("Hallo! Hier koennen Sie das Sondervermoegen der Bundeswehr ausgeben!");
 
             ui.heading(format!(
-                "Restvermoegen {}",
+                "Verfuegbarer Betrag: {}",
                 remaining_credits.to_formatted_string(&Locale::de)
             ));
 
             let mut cost = 0;
 
             for (unit, num) in units_bought {
+                if *num == 0 {continue;}
                 let price = *num as i64 * unit.total_cost();
 
                 cost += price;
 
-                ui.label(format!(
-                    "{} x {} {}",
-                    num,
-                    &unit.name,
-                    price.to_formatted_string(&Locale::de)
-                ));
+
+                ui.horizontal(|ui| {
+                    ui.label(format!(
+                        "{} x {} {}",
+                        num,
+                        &unit.name,
+                        price.to_formatted_string(&Locale::de)
+                    ));
+    
+                    if ui.button("🗑").clicked() {
+                        *num = 0;
+                    }
+                });
             }
 
             *remaining_credits = *credits - cost;
+
+            egui::CollapsingHeader::new("Info")
+                .default_open(false)
+                .show(ui, |ui| {
+                    ui.hyperlink_to("Github", "https://github.com/woelper/sondervermoegen");
+                    ui.hyperlink_to(
+                        "Konfiguration der Einheiten:",
+                        " https://github.com/woelper/sondervermoegen/blob/master/units.json",
+                    );
+                });
         });
     }
 }

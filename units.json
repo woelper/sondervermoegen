@@ -4,15 +4,17 @@
     "kaufpreis": 15000000,
     "url": "https://de.wikipedia.org/wiki/Leopard_2",
     "soldaten": 4,
+    "icon": "🚙",
     "wartung_pro_jahr": 0
   },
   {
-    "name": "Eurofighter",
+    "name": "Eurofighter Typhoon",
     "kaufpreis": 113900000,
     "icon": "✈",
-    "url": "https://de.wikipedia.org/wiki/Leopard_2",
+    "url": "https://de.wikipedia.org/wiki/Eurofighter_Typhoon",
     "soldaten": 8,
-    "wartung_pro_jahr": 530000
+    "wartung_pro_jahr": 530000,
+    "beschreibung": "Der Eurofighter Typhoon ist ein zweistrahliges Mehrzweckkampfflugzeug"
   },
   {
     "name": "U 212CD",
@@ -36,7 +38,29 @@
     "url": "https://de.wikipedia.org/wiki/Boeing-Vertol_CH-47",
     "soldaten": 4,
     "icon": "🚁",
-    "wartung_pro_jahr": 10000
+    "wartung_pro_jahr": 10000,
+    "beschreibung": "Transporthubschrauber. Die Bundesregierung plant die Anschaffung von 60 Stueck."
+
+  },
+  {
+    "name": "NH 90",
+    "kaufpreis": 35000000,
+    "url": "https://de.wikipedia.org/wiki/NH90",
+    "soldaten": 4,
+    "icon": "🚁",
+    "wartung_pro_jahr": 10000,
+    "beschreibung": "Marinehelikopter. Es sind u.U. unter 10 Exemplare einsatzfaehig."
+
+  },
+  {
+    "name": "MANTIS",
+    "kaufpreis": 68000000,
+    "url": "https://de.wikipedia.org/wiki/MANTIS_(Flugabwehrsystem)#:~:text=sowie%20eine%20Kommandozentrale.-,Beschaffung,Millionen%20Euro%20f%C3%BCr%20die%20Bundeswehr.",
+    "soldaten": 4,
+    "icon": "🚀",
+    "wartung_pro_jahr": 10000,
+    "beschreibung": "Nahbereichsflugabwehrsystem"
+
   },
   {
     "name": "F35",
@@ -44,7 +68,8 @@
     "url": "https://de.wikipedia.org/wiki/Lockheed_Martin_F-35",
     "soldaten": 8,
     "icon": "✈",
-    "wartung_pro_jahr": 10000
+    "wartung_pro_jahr": 10000,
+    "beschreibung": "Deutschland plant 35 F35 anzuschaffen, um den Tornado zu ersetzen. Deutschland braucht ein Flugzeug, um amerikanische Atomwaffen einzusetzen."
   },
   {
     "name": "A400M",
@@ -55,11 +80,27 @@
     "wartung_pro_jahr": 10000
   },
   {
+    "name": "Airbus A310",
+    "kaufpreis": 75000000,
+    "url": "https://en.wikipedia.org/wiki/Airbus_A310_MRTT",
+    "soldaten": 4,
+    "icon": "✈",
+    "wartung_pro_jahr": 10000
+  },
+  {
     "name": "Eurocopter Tiger",
     "kaufpreis": 48000000,
     "url": "https://de.wikipedia.org/wiki/Airbus_A400M",
     "soldaten": 8,
     "icon": "🚁",
+    "wartung_pro_jahr": 10000
+  },
+  {
+    "name": "Panzerhaubitze 2000",
+    "kaufpreis": 4000000,
+    "url": "https://de.wikipedia.org/wiki/Panzerhaubitze_2000",
+    "soldaten": 5,
+    "icon": "🚢",
     "wartung_pro_jahr": 10000
   }
 ]
