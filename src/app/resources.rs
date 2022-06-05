@@ -41,6 +41,7 @@ pub struct Unit {
     pub name: String,
     pub kaufpreis: i64,
     pub url: String,
+    pub icon: Option<String>,
     pub soldaten: usize,
     pub wartung_pro_jahr: i64,
 }
@@ -57,4 +58,12 @@ fn write_unit() {
     let mut leopard2 = Unit::default();
     // leopard2.soldaten.push(Soldat::default());
     serde_json::to_writer_pretty(File::create("leo.json").unwrap(), &leopard2).unwrap();
+}
+
+#[test]
+fn load_units() {
+
+    let mut leopard2 = Unit::default();
+    // leopard2.soldaten.push(Soldat::default());
+    let units: Vec<Unit> = serde_json::from_reader(File::open("units.json").unwrap()).unwrap();
 }

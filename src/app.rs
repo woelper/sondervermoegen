@@ -78,8 +78,14 @@ impl eframe::App for TemplateApp {
 
             for unit in units {
                 ui.horizontal(|ui| {
+                    if let Some(icon) = &unit.icon {
+                        ui.label(icon);
+                    }
                     ui.label(&unit.name);
-                    ui.label(format!("{}", unit.kaufpreis.to_formatted_string(&Locale::de)));
+                    ui.label(format!(
+                        "{}",
+                        unit.kaufpreis.to_formatted_string(&Locale::de)
+                    ));
                     if ui.button("+1").clicked() {
                         *units_bought.entry(unit.clone()).or_default() += 1;
                     }
@@ -88,9 +94,6 @@ impl eframe::App for TemplateApp {
                     }
                 });
             }
-
-
- 
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
@@ -117,11 +120,6 @@ impl eframe::App for TemplateApp {
             }
 
             *remaining_credits = *credits - cost;
-
- 
-
-            
         });
-
     }
 }
