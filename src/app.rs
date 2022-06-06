@@ -73,34 +73,38 @@ impl eframe::App for TemplateApp {
         egui::SidePanel::left("side_panel").show(ctx, |ui| {
             ui.heading("verfuegbare Ausruestung");
 
-            for unit in units {
-                let r = ui.scope(|ui| {
-                    ui.horizontal(|ui| {
-                        if let Some(icon) = &unit.icon {
-                            ui.label(icon);
-                        }
-                        ui.label(&unit.name);
-                        ui.hyperlink_to("wiki", &unit.url);
-                    });
+            egui::ScrollArea::new([true, false]).show(ui, |ui| {
+                for unit in units {
+                    let r = ui
+                        .scope(|ui| {
+                            ui.horizontal(|ui| {
+                                if let Some(icon) = &unit.icon {
+                                    ui.label(icon);
+                                }
+                                // ui.label(&unit.name);
+                                ui.hyperlink_to(&unit.name, &unit.url);
+                            });
 
-                    ui.horizontal(|ui| {
-                        ui.label(format!(
-                            "{}",
-                            unit.kaufpreis.to_formatted_string(&Locale::de)
-                        ));
-                        if ui.button("+1").clicked() {
-                            *units_bought.entry(unit.clone()).or_default() += 1;
-                        }
-                        if ui.button("+10").clicked() {
-                            *units_bought.entry(unit.clone()).or_default() += 10;
-                        }
-                    });
-                }).response;
+                            ui.horizontal(|ui| {
+                                ui.label(format!(
+                                    "{}",
+                                    unit.kaufpreis.to_formatted_string(&Locale::de)
+                                ));
+                                if ui.button("+1").clicked() {
+                                    *units_bought.entry(unit.clone()).or_default() += 1;
+                                }
+                                if ui.button("+10").clicked() {
+                                    *units_bought.entry(unit.clone()).or_default() += 10;
+                                }
+                            });
+                        })
+                        .response;
 
-                if unit.beschreibung != "" {
-                    r.on_hover_text(&unit.beschreibung);
+                    if unit.beschreibung != "" {
+                        r.on_hover_text(&unit.beschreibung);
+                    }
                 }
-            }
+            });
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
@@ -114,11 +118,12 @@ impl eframe::App for TemplateApp {
             let mut cost = 0;
 
             for (unit, num) in units_bought {
-                if *num == 0 {continue;}
+                if *num == 0 {
+                    continue;
+                }
                 let price = *num as i64 * unit.total_cost();
 
                 cost += price;
-
 
                 ui.horizontal(|ui| {
                     ui.label(format!(
@@ -127,7 +132,7 @@ impl eframe::App for TemplateApp {
                         &unit.name,
                         price.to_formatted_string(&Locale::de)
                     ));
-    
+
                     if ui.button("🗑").clicked() {
                         *num = 0;
                     }
