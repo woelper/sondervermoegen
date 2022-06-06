@@ -73,7 +73,7 @@ impl eframe::App for TemplateApp {
         egui::SidePanel::left("side_panel").show(ctx, |ui| {
             ui.heading("Ausruestung");
 
-            egui::ScrollArea::new([true, false]).show(ui, |ui| {
+            egui::ScrollArea::new([false, true]).show(ui, |ui| {
                 for unit in units {
                     let r = ui
                         .scope(|ui| {
@@ -85,10 +85,11 @@ impl eframe::App for TemplateApp {
                                 ui.hyperlink_to(&unit.name, &unit.url);
                             });
 
+                            
                             ui.horizontal(|ui| {
                                 ui.label(format!(
-                                    "{}",
-                                    unit.kaufpreis.to_formatted_string(&Locale::de)
+                                    "{} Mio €",
+                                    (unit.kaufpreis/1000000).to_formatted_string(&Locale::de)
                                 ));
                                 if ui.button("+1").clicked() {
                                     *units_bought.entry(unit.clone()).or_default() += 1;
@@ -111,7 +112,7 @@ impl eframe::App for TemplateApp {
             ui.label("Hallo! Hier koennen Sie das Sondervermoegen der Bundeswehr ausgeben!");
 
             ui.heading(format!(
-                "Verfuegbarer Betrag: {}",
+                "Restvermoegen: {}",
                 remaining_credits.to_formatted_string(&Locale::de)
             ));
 
@@ -144,9 +145,13 @@ impl eframe::App for TemplateApp {
             egui::CollapsingHeader::new("Info")
                 .default_open(false)
                 .show(ui, |ui| {
+
+
+
+
                     ui.hyperlink_to("Github", "https://github.com/woelper/sondervermoegen");
                     ui.hyperlink_to(
-                        "Konfiguration der Einheiten:",
+                        "Konfiguration der Einheiten",
                         " https://github.com/woelper/sondervermoegen/blob/master/units.json",
                     );
                 });

@@ -5,6 +5,16 @@
     "url": "https://de.wikipedia.org/wiki/Leopard_2",
     "soldaten": 4,
     "icon": "🚙",
+    "beschreibung": "Kampfpanzer",
+    "wartung_pro_jahr": 0
+  },
+  {
+    "name": "Schützenpanzer Puma",
+    "kaufpreis": 17142857,
+    "url": "https://de.wikipedia.org/wiki/Puma_(Sch%C3%BCtzenpanzer)",
+    "soldaten": 9,
+    "icon": "🚙",
+    "beschreibung": "Schützenpanzer. Bislang wurden 350 Exemplare fuer rund 6 Mrd bestellt.",
     "wartung_pro_jahr": 0
   },
   {
@@ -31,6 +41,14 @@
     "soldaten": 190,
     "icon": "🚢",
     "wartung_pro_jahr": 530000
+  },
+  {
+    "name": "Kaserne",
+    "kaufpreis": 300000000,
+    "url": "https://de.wikipedia.org/wiki/Kaserne",
+    "soldaten": 200,
+    "icon": "🏠",
+    "wartung_pro_jahr": 200000
   },
   {
     "name": "CH-47F Chinook",
@@ -80,11 +98,12 @@
     "wartung_pro_jahr": 10000
   },
   {
-    "name": "Airbus A310",
+    "name": "Airbus A310 MRTT",
     "kaufpreis": 75000000,
     "url": "https://en.wikipedia.org/wiki/Airbus_A310_MRTT",
     "soldaten": 4,
     "icon": "✈",
+    "beschreibung": "Der Airbus A310-304 MRTT (Multi-Role-Transport-Tanker) ist eine Weiterentwicklung der A310-304 MRT, der zusätzlich als Tankflugzeug eingesetzt werden kann.",
     "wartung_pro_jahr": 10000
   },
   {
@@ -99,6 +118,7 @@
     "name": "Panzerhaubitze 2000",
     "kaufpreis": 4000000,
     "url": "https://de.wikipedia.org/wiki/Panzerhaubitze_2000",
+    "beschreibung": "Ein modernes Artilleriegeschuetz",
     "soldaten": 5,
     "icon": "🚢",
     "wartung_pro_jahr": 10000
