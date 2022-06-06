@@ -71,7 +71,7 @@ impl eframe::App for TemplateApp {
         });
 
         egui::SidePanel::left("side_panel").show(ctx, |ui| {
-            ui.heading("verfuegbare Ausruestung");
+            ui.heading("Ausruestung");
 
             egui::ScrollArea::new([true, false]).show(ui, |ui| {
                 for unit in units {
